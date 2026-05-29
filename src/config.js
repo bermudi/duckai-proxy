@@ -17,7 +17,7 @@ export const config = {
   localStorageDefaults: {
     duckaiReasoningMode: '"reasoning"', // enale reasoning for gpt-5 mini
     duckaiReasoningUsed: 'true', // same
-    duckaiHasAgreedToTerms: 'true' // disable duck.ai ToS pop-up
+    duckaiHasAgreedToTerms: 'true', // disable duck.ai ToS pop-up
     preferredDuckaiModel: '"1"', // Claude Haiku 4.5
   },
 
