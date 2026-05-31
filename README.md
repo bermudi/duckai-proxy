@@ -1,6 +1,6 @@
 # DuckAI reverse proxy
 
-Aka Duckduckgo AI
+aka Duckduckgo AI
 
 Works well on Cloudflare Workers & Deno, and perhaps your own servers
 
@@ -23,8 +23,8 @@ npx wrangler deploy
 
 Use the default build/deploy commands, do not change them unless you know what you are doing
 
-[![Deploy to Cloudflare](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/ov-4/duckai-proxy)
-[![Deploy on Deno](https://deno.com/button)](https://console.deno.com/new?clone=https://github.com/ov-4/duckai-proxy)
+[![Deploy to Cloudflare](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/ovfor4/duckai-proxy)
+[![Deploy on Deno](https://deno.com/button)](https://console.deno.com/new?clone=https://github.com/ovfor4/duckai-proxy)
 
 
 
