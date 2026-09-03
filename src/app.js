@@ -57,6 +57,14 @@ export async function handleRequest(request, config) {
   responseHeaders.delete('clear-site-data');
   responseHeaders.delete('x-frame-options');
 
+  // fetch() auto-decompresses the upstream body but leaves the original
+  // Content-Encoding/Content-Length headers in place. Forwarding them would
+  // advertise an encoding the body no longer has, which makes browsers refuse
+  // to render (Firefox: "Content Encoding Error"). The HTML branch below also
+  // rewrites the body, so the original length would be wrong either way.
+  responseHeaders.delete('content-encoding');
+  responseHeaders.delete('content-length');
+
   const contentType = responseHeaders.get('content-type');
   const isHtml = contentType && contentType.toLowerCase().includes('text/html');
   const body = isHtml
