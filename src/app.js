@@ -6,8 +6,25 @@ import {
   rewriteUpstreamResponseHeaders
 } from './headers.js';
 import { replaceResponseText } from './html.js';
+import { handleApi, isApiPath } from './api.js';
+import { savePass } from './kv.js';
 
-export async function handleRequest(request, config) {
+export async function handleRequest(request, config, env, ctx) {
+  const apiPath = new URL(request.url).pathname;
+  if (isApiPath(apiPath)) {
+    return handleApi(request, env);
+  }
+  // Capture a real browser pass flowing through the mirror so the
+  // API can borrow it. Fire-and-forget: never block the proxy.
+  // Headers.get is already case-insensitive, so one lookup is enough.
+  const incoming = request.headers.get('X-Vqd-Hash-1') || '';
+  if (incoming.trim()) {
+    try {
+      const p = savePass(env, incoming);
+      if (ctx && typeof ctx.waitUntil === 'function') ctx.waitUntil(p.catch(() => {}));
+      else p.catch(() => {});
+    } catch {}
+  }
   const region = getRegion(request);
   const ipAddress = getIpAddress(request);
   const userAgent = request.headers.get('user-agent') || '';
